@@ -14,7 +14,7 @@ jobs:
 
       - name: Testing Bash env var
         run:  | 
-          VERSION=$(cat ./VERSION)
+          VERSION=$(head -n 1 ./VERSION)
           if [ -z $VERSION ]; then
             echo "Version in empty. Aborting."
             exit 1
