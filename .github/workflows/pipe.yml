@@ -42,4 +42,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:$VERSION
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ env.VERSION }}
