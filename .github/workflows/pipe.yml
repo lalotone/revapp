@@ -19,7 +19,7 @@ jobs:
             echo "Version in empty. Aborting."
             exit 1
           fi
-          echo $VERSION >> $GITHUB_ENV
+          echo "$VERSION" >> $GITHUB_ENV
 
       - name: Check variable
         run:  | 
