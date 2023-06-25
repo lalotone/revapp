@@ -19,7 +19,7 @@ jobs:
             echo "Version in empty. Aborting."
             exit 1
           fi
-          echo "version<<EOF" >> $GITHUB_ENV
+          echo "VERSION<<EOF" >> $GITHUB_ENV
           echo "$VERSION" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
@@ -42,4 +42,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ env.VERSION }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ env.version }}
