@@ -13,15 +13,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Testing Bash env var
+        id: set_version
         run:  | 
           VERSION=$(head -n 1 ./VERSION)
           if [ -z $VERSION ]; then
             echo "Version in empty. Aborting."
             exit 1
           fi
-          echo "VERSION<<EOF" >> $GITHUB_ENV
-          echo "$VERSION" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo $VERSION >> "$GITHUB_OUTPUT"
 
       - name: Check variable
         run:  | 
@@ -42,4 +41,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ env.version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ steps.set_version.outputs.VERSION }}
