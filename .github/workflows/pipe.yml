@@ -14,7 +14,14 @@ jobs:
 
       - name: Testing Bash env var
         run:  | 
-          head -n 1 ./VERSION >> $GITHUB_ENV
+          VERSION=$(head -n 1 ./VERSION)
+          if [ -z $VERSION ]; then
+            echo "Version in empty. Aborting."
+            exit 1
+          fi
+          echo "version<<EOF" >> $GITHUB_ENV
+          echo "$VERSION" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Check variable
         run:  | 
