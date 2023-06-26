@@ -48,3 +48,9 @@ jobs:
         run: |
           VERSION=$(head -n 1 ./src/VERSION)
           docker run aquasec/trivy image $DOCKERHUB_USERNAME/revapi:$VERSION --exit-code 1
+
+      - name: CD step
+        run: |
+          TMP_PATH=$(mktemp -d)
+          whoami
+          wget --version
