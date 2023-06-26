@@ -85,5 +85,4 @@ spec:
               number: 80
         path: "/"
         pathType: pathPrefix
-  {{- end }}
 ---
