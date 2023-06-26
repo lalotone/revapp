@@ -3,7 +3,7 @@ general:
   appName: "revapp"
 
 app:
-  image: nginx:latest
+  image: fooser/revapi:0.1
   resources:
     requests:
       cpu: 100m
