@@ -17,5 +17,5 @@ try:
     collection = db["users"]
 except ConnectionFailure:
     logging.error("Cannot connect to DB")
-except Exception:
-    logging.error("Something went wrong")
+except Exception as e:
+    logging.error("Something went wrong: ", e)
