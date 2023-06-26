@@ -52,5 +52,6 @@ jobs:
       - name: CD step
         run: |
           TMP_PATH=$(mktemp -d)
-          whoami
-          wget --version
+          wget https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_darwin_amd64 -O $TMP_PATH/yq
+          export PATH="$TMP_PATH:$PATH"
+          yq --version
