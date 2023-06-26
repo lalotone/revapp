@@ -19,12 +19,13 @@
 ## TODO:
 
 - GKE should be deployed via Terraform
+- Custom logger on APP with FastAPI
 - Add DocStrings to all the methods
 - Improve the Pydantic modeling
 - Move GitOps manifests to another repo
 - Not run container as root
 - Unit testing
-- MongoDB not deployed as standalone
+- MongoDB not deployed as standalone, use operator with Sharding/ReplicaSet config.
 - Document for SRE SLI/Os observability/maintenance
 - Fix CamelCase/snake_case
 - Change ISOFormat -> Date MongoDB

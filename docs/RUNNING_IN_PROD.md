@@ -10,3 +10,5 @@
 - If necessary (but **must** be monitored ) implement HPA based on memory. But this should be double-checked to avoid multiple 
 replicas that doesn't free the mem.
 - Easy way to do rollback to previous version.
+- Databases running in HA, Sharding/ReplicaSet for Mongo and Master/Slave(s) Active/Pasive Active/Active for solutions
+like MySQL or similar products.
