@@ -2,7 +2,7 @@ general:
   domain: "example.com"
   appName: "revapp"
 app:
-  image: fooser/revapi:0.0.4
+  image: fooser/revapi:0.0.5
   resources:
     requests:
       cpu: 100m
