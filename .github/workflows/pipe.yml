@@ -43,4 +43,4 @@ jobs:
 
       - name: Check image vulnerabilities
         run: |
-          docker run aquasec/trivy image python:3.4-alpine
+          docker run aquasec/trivy image python:3.4-alpine --exit-code 1
