@@ -84,5 +84,5 @@ spec:
             port:
               number: 80
         path: "/"
-        pathType: pathPrefix
+        pathType: Path
 ---
