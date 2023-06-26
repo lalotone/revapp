@@ -5,7 +5,7 @@ from sys import exit
 import logging
 
 # Exit if it's not possible to connect to DB
-MONGO_URI=os.environ.get('MONGO_URI')
+MONGO_URI = os.environ.get('MONGO_URI')
 
 if not MONGO_URI:
     logging.error("No MONGO_URI was defined. exiting.")

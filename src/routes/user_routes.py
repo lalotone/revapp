@@ -12,7 +12,8 @@ user = APIRouter()
 @user.get("/hello/{username}")
 async def greet_user(username: str):
     """
-    This method greets the username and retrieves the information about his/her birthday.
+    This method greets the username and retrieves the information
+    about his/her birthday.
     :param username: Username to find on database to greet.
     :return: Days left to birthday.
     """
@@ -21,7 +22,7 @@ async def greet_user(username: str):
         if not user_data:
             # 404 or 204
             raise HTTPException(status_code=404, detail="User not exists")
-    
+
         raw_birth_date = user_data.get('dateOfBirth')
         today = datetime.today()
         birth_date = datetime.strptime(raw_birth_date, '%Y-%m-%d')
@@ -29,16 +30,20 @@ async def greet_user(username: str):
         if today < birth_date:
             next_birth_date = birth_date.replace(year=datetime.now().year)
             delta = next_birth_date - today
-            return {"message": f"Hello, {user_data.get('username')}! {delta.days} days left for your birthday"}
+            return {"message": f"Hello, {user_data.get('username')}! "
+                               f"{delta.days} days left for your birthday"}
 
         elif today == birth_date:
-            return {"message": f"Hello, {user_data.get('username')}! Happy birthday!"}
+            return {"message": f"Hello, {user_data.get('username')}! "
+                               f"Happy birthday!"}
 
         elif today > birth_date:
             next_birth_date = birth_date.replace(year=datetime.now().year + 1)
             delta = next_birth_date - today
-            return {"message": f"You have already passed your birthday this year. "
-                               f"For the next one there are: {delta.days} days left."}
+            return {"message": f"You have already passed "
+                               f"your birthday this year. "
+                               f"For the next one there are: "
+                               f"{delta.days} days left."}
     except ServerSelectionTimeoutError:
         logging.error("Error connecting to database")
         raise HTTPException(status_code=500, detail="User already exists")
@@ -48,12 +53,11 @@ async def greet_user(username: str):
         raise HTTPException(status_code=exc.status_code, detail=exc.detail)
     except Exception as ex:
         logging.error("Generic exception: ", ex)
-        
-    
 
 
 @user.put("/hello/{username}", status_code=204)
-async def create_user(username: Annotated[str, Path(regex="^[a-zA-Z]+$")], date_of_birth: Date):
+async def create_user(username: Annotated[str,
+                      Path(regex="^[a-zA-Z]+$")], date_of_birth: Date):
     """
     Method that inserts user in database if it passes the required validation
     :param username: Name of user, only alpha
@@ -62,14 +66,16 @@ async def create_user(username: Annotated[str, Path(regex="^[a-zA-Z]+$")], date_
     """
     user_exists = collection.find_one({"username": username})
     if not user_exists:
-        user_data = {"username": username, "dateOfBirth": date_of_birth.dateOfBirth.isoformat()}
+        user_data = {"username": username, "dateOfBirth":
+                     date_of_birth.dateOfBirth.isoformat()}
         try:
             collection.insert_one(dict(user_data))
             return
         except Exception as e:
-            logging.error("Error inserting USER")
+            logging.error("Error inserting USER: ", e)
 
     raise HTTPException(status_code=409, detail="User already exists")
+
 
 @user.get("/health")
 async def read_main():

@@ -13,4 +13,3 @@ class Date(BaseModel):
         if date_object.date() >= date.today():
             raise ValueError("Date is too recent")
         return v
-
