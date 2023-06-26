@@ -1,9 +1,8 @@
 general:
   domain: "example.com"
   appName: "revapp"
-
 app:
-  image: fooser/revapi:0.0.1
+  image: fooser/revapi:0.0.2
   resources:
     requests:
       cpu: 100m
@@ -16,12 +15,9 @@ hpa:
   minReplicas: 2
   maxReplicas: 10
   cpu: 60
-
 ingress:
   host: "nginx"
-
 config:
   TEST: "Development"
-
 secrets:
   MONGO_URI: "mongo-uri"
