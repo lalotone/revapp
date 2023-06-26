@@ -83,7 +83,7 @@ spec:
             name: {{ $name }}
             port:
               number: 80
-        path: {{ .Values.ingress.pathPrefix }}
+        path: "/"
         pathType: Prefix
   {{- end }}
 ---
