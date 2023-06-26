@@ -16,7 +16,7 @@ hpa:
   maxReplicas: 10
   cpu: 60
 ingress:
-  host: "nginx"
+  host: "revapp"
 config:
   TEST: "Development"
 secrets:
