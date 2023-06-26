@@ -54,7 +54,7 @@ jobs:
           TMP_PATH=$(mktemp -d)
           wget https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_darwin_amd64 -O $TMP_PATH/yq
           export PATH="$TMP_PATH:$PATH"
-          cd .gitops/revapp
+          cd ./gitops/revapp
           TAG=$(yq .app.image values.yaml | cut -d: -f2)
           NEW_IMAGE="fooser/revapi:$(head -n 1 ../../src/VERSION)" yq -i '.app.image = strenv(NEW_IMAGE)' values.yaml
 
