@@ -19,7 +19,7 @@ hpa:
 
 ingress:
   host: "nginx"
-  path: "/"
+  pathPrefix: "/"
 
 config:
   TEST: "Development"

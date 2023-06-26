@@ -76,7 +76,7 @@ spec:
   ingressClassName: nginx
   rules:
   - host: {{ .Values.ingress.host }}.{{ $domain }}
-    http: &httpRule
+    http: 
       paths:
       - backend:
           service:
@@ -85,8 +85,5 @@ spec:
               number: 80
         path: {{ .Values.ingress.pathPrefix }}
         pathType: Prefix
-  {{- range .Values.ingress.extraHostnames }}
-  - host: {{ . }}
-    http: *httpRule
   {{- end }}
 ---
