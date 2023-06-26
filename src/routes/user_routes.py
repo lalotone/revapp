@@ -26,18 +26,17 @@ async def greet_user(username: str):
         raw_birth_date = user_data.get('dateOfBirth')
         today = datetime.today()
         birth_date = datetime.strptime(raw_birth_date, '%Y-%m-%d')
-
-        if today < birth_date:
-            next_birth_date = birth_date.replace(year=datetime.now().year)
+        next_birth_date = birth_date.replace(year=datetime.now().year)
+        if today < next_birth_date:
             delta = next_birth_date - today
-            return {"message": f"Hello, {user_data.get('username')}! "
-                               f"{delta.days} days left for your birthday"}
-
-        elif today == birth_date:
+            return {
+                "message": f"Hello, {user_data.get('username')}! "
+                           f"{delta.days} days left for your birthday"
+            }
+        elif today.date() == next_birth_date.date():
             return {"message": f"Hello, {user_data.get('username')}! "
                                f"Happy birthday!"}
-
-        elif today > birth_date:
+        elif today > next_birth_date:
             next_birth_date = birth_date.replace(year=datetime.now().year + 1)
             delta = next_birth_date - today
             return {"message": f"You have already passed "
@@ -47,7 +46,6 @@ async def greet_user(username: str):
     except ServerSelectionTimeoutError:
         logging.error("Error connecting to database")
         raise HTTPException(status_code=500, detail="User already exists")
-    # Broad exception
     except HTTPException as exc:
         logging.error(f"HTTP exception raised: {exc.status_code}")
         raise HTTPException(status_code=exc.status_code, detail=exc.detail)
@@ -57,7 +55,7 @@ async def greet_user(username: str):
 
 @user.put("/hello/{username}", status_code=204)
 async def create_user(username: Annotated[str,
-                      Path(regex="^[a-zA-Z]+$")], date_of_birth: Date):
+Path(regex="^[a-zA-Z]+$")], date_of_birth: Date):
     """
     Method that inserts user in database if it passes the required validation
     :param username: Name of user, only alpha
@@ -67,7 +65,7 @@ async def create_user(username: Annotated[str,
     user_exists = collection.find_one({"username": username})
     if not user_exists:
         user_data = {"username": username, "dateOfBirth":
-                     date_of_birth.dateOfBirth.isoformat()}
+            date_of_birth.dateOfBirth.isoformat()}
         try:
             collection.insert_one(dict(user_data))
             return

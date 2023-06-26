@@ -28,5 +28,6 @@
 - Document for SRE SLI/Os observability/maintenance
 - Fix CamelCase/snake_case
 - Change ISOFormat -> Date MongoDB
+- Improve Exception handling
 - ...
 
