@@ -1,0 +1,28 @@
+general:
+  domain: "example.com"
+  appName: "revapp"
+
+app:
+  image: nginx:latest
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  cpu: 60
+
+ingress:
+  host: "nginx"
+  path: "/"
+
+config:
+  TEST: "Development"
+
+secrets:
+  MONGO_URI: "connstring"

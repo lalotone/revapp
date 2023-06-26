@@ -1,0 +1,92 @@
+{{ $name := .Values.general.appName }}
+{{ $image := .Values.app.image }}
+{{ $domain := .Values.general.domain }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cfg
+  namespace: {{ $name }}
+data:
+  {{- toYaml .Values.config | nindent 2 }}
+---
+{{- if .Values.hpa.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+spec:
+  minReplicas: {{ .Values.hpa.minReplicas }}
+  maxReplicas: {{ .Values.hpa.maxReplicas }}
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: {{ .Values.hpa.cpu }}
+        type: Utilization
+    type: Resource
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $name }}
+{{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $name }}
+    spec:
+      containers:
+      - name: app
+        image: {{ $image }}
+        env:
+          {{- include "helpers.list-env-vars" . | indent 8 }}
+          {{- include "helpers.list-secret-vars" . | indent 8 }}
+        ports:
+        - containerPort: 80
+        resources:
+          {{- toYaml .Values.app.resources | nindent 10 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+spec:
+  selector:
+    app: {{ $name }}
+  ports:
+  - port: 80
+    targetPort: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $name }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: {{ .Values.ingress.host }}.{{ $domain }}
+    http: &httpRule
+      paths:
+      - backend:
+          service:
+            name: {{ $name }}
+            port:
+              number: 80
+        path: {{ .Values.ingress.pathPrefix }}
+        pathType: Prefix
+  {{- range .Values.ingress.extraHostnames }}
+  - host: {{ . }}
+    http: *httpRule
+  {{- end }}
+---
