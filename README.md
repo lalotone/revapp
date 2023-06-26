@@ -14,7 +14,7 @@
 
 - SRE/Monitoring: [SRE](./docs/SRE.md)
 - CI/CD and possible strategies [CI-CD](./docs/CI-CD.md)
-- Considerations to run/maintain Prod
+- Considerations to run/maintain Prod [PROD](./docs/RUNNING_IN_PROD.md)
 
 ## TODO:
 
