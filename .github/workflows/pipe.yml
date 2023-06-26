@@ -15,7 +15,7 @@ jobs:
       - name: Testing Bash env var
         id: set_version
         run:  | 
-          VERSION=$(head -n 1 ./VERSION)
+          VERSION=$(head -n 1 ./src/VERSION)
           if [ -z $VERSION ]; then
             echo "Version in empty. Aborting."
             exit 1
@@ -37,6 +37,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile
+          file: ./src/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ steps.set_version.outputs.VERSION }}
