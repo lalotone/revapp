@@ -32,3 +32,5 @@ to allow automatic rollback if budget consumption is consumed too fast with the 
 to adjust the SLI/Os and Expected ratio of budget consumption.
 - SRE should comment with DevOps team (based on monitoring) if another deployment strategy is preferred like Canary or 
 BlueGreen (solution provided by ArgoCD)
+- HPA enabled by default to increase availability and throughput in case of many requests received.
+- Multi cloud can be an option with Akamai or similar services to balance loads between cloud providers/regions.

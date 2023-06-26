@@ -13,7 +13,7 @@
 ## Extra info
 
 - SRE/Monitoring: [SRE](./docs/SRE.md)
-- CI/CD and possible strategies
+- CI/CD and possible strategies [CI-CD](./docs/CI-CD.md)
 - Considerations to run/maintain Prod
 
 ## TODO:
@@ -29,5 +29,5 @@
 - Fix CamelCase/snake_case
 - Change ISOFormat -> Date MongoDB
 - Improve Exception handling
-- ...
+- ... (Open to discuss)
 
