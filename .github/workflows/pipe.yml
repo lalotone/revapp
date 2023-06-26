@@ -40,3 +40,7 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/revapi:${{ steps.set_version.outputs.VERSION }}
+
+      - name: Check image vulnerabilities
+        run: |
+          docker run aquasec/trivy image python:3.4-alpine
