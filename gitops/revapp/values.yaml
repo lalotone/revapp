@@ -25,4 +25,4 @@ config:
   TEST: "Development"
 
 secrets:
-  MONGO_URI: "connstring"
+  MONGO_URI: "mongo-uri"
