@@ -32,3 +32,7 @@
 - Improve Exception handling
 - ... (Open to discuss)
 
+# Learned in the process:
+
+- GitHub Actions.
+- GKE.
