@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "revapp"
+version = "0.1.0"
+description = "Demo app"
+authors = ["gizquierdo <lalotone@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "0.97.0"
+uvicorn = "0.22.0"
+pymongo = "4.4.0"
+prometheus-fastapi-instrumentator = "6.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
