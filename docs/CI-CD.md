@@ -2,7 +2,7 @@
 
 CI/CD is based in a simple PoC of GitOps:
 
-![img.png](img/cicd.png)
+![img.png](img/ci_cd_enhaced.png)
 
 Pipeline steps:
 
